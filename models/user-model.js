@@ -7,6 +7,7 @@ const customerSchema = mongoose.Schema({
   },
   email: {
     type: String,
+    unique:true,
     required: true,
   },
   password: {
@@ -15,11 +16,11 @@ const customerSchema = mongoose.Schema({
   },
   customerPic: {
     type: String,
-    required: true,
+ 
   },
   phoneNo: {
     type: Number,
-    required: true,
+    
   },
   cart: {
     type: Array,
@@ -27,10 +28,6 @@ const customerSchema = mongoose.Schema({
   },
   order: {
     type: [],
-  },
-  isAdmin: {
-    type: Boolean,
-    default: false,
   },
 });
 

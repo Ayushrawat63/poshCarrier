@@ -1,12 +1,13 @@
 const mongoose = require("mongoose");
-const dgr=require('debug')("development:Mongoose")
+require('dotenv').config()
+
 mongoose
-  .connect("mongodb://localhost:27017/PoshCarrier")
+  .connect(process.env.MONGOOSE_CONNECT_URL)
   .then(() => {
-    dgr("Database connected");
+    console.log("Database connected");
   })
   .catch((err) => {
-    dgr(err, "Db disconnected");
+    console.log(err, "Db disconnected");
   });
 
   module.exports=mongoose.connection;

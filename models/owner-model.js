@@ -15,11 +15,11 @@ const ownerSchema = mongoose.Schema({
   },
   ownerPic: {
     type: String,
-    required: true,
+   
   },
   gstNo: {
     type: String,
-    required: true,
+   
   },
   products: {
     type: [],
