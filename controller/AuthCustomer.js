@@ -2,7 +2,7 @@ const {bcryptPassword ,verifyPassword}=require('../utils/hashing')
 
 const userModel=require('../models/user-model')
 const { GenerateToken  } = require('../utils/jwt')
-
+const productModel=require('../models/product-model')
 
 const regsiterCustomer=async(req,res)=>{
     try{
@@ -35,12 +35,21 @@ const loginCustomer=async (req,res)=>{
         // console.log(req.body)
       let {email,password}=req.body
       const user= await userModel.findOne({email})
-      if(!user) return res.status(401).json({error:"User not found"})
+      if(!user) 
+        { 
+          req.flash("error","Email or password does not match")
+         return res.redirect('/')
+        }
         // console.log(user)
         const hashpassword=user.password
         // console.log(user.password)
       const ismatch= await verifyPassword(password,hashpassword);
-      if(!ismatch) return res.status(401).json({error:"password does not match"})
+      if(!ismatch)
+      { 
+        req.flash("error","Email or password does not match")
+       return res.redirect('/')
+      }
+          
          
         const payload={
           id:user._id
@@ -49,7 +58,9 @@ const loginCustomer=async (req,res)=>{
           const token =GenerateToken(payload);
           res.cookie('jwtToken',token);
 
-        return  res.render('shop')
+          const products= await  productModel.find()
+          const success=req.flash('success')
+          res.render('shop',{products,success})
     }
     catch (err) {
         console.log(err.message);
@@ -57,8 +68,13 @@ const loginCustomer=async (req,res)=>{
       }
 }
 
+const logoutCustomer=(req,res)=>{
+  res.cookie('jwtToken',"")
+   res.redirect('/')   
+}
+
 module.exports={
     regsiterCustomer,
-    loginCustomer
-
+    loginCustomer,
+     logoutCustomer
 };

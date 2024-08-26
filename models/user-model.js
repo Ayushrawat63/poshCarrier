@@ -22,10 +22,10 @@ const customerSchema = mongoose.Schema({
     type: Number,
     
   },
-  cart: {
-    type: Array,
-    default: [],
-  },
+  cart: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref:"product",
+  }],
   order: {
     type: [],
   },
