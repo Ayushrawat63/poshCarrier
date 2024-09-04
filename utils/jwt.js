@@ -14,6 +14,19 @@ const verifyToken=(req,res,next)=>{
      next();
 }
 
+const verifyOnwerToken=(req,res,next)=>{
+    const token = req.cookies.ownerJWT
+    //  console.log(token)
+     if (!token) {
+        req.flash("error","you ar not Authorized")
+        return res.redirect('/shop')
+     }
+     const verify = jwt.decode(token);
+    //  console.log(verify)
+     req.payload=verify;
+     return next();
+}
+
 const GenerateToken=(data)=>{
     return jwt.sign(data,process.env.SECERT_KEY);
 }
@@ -21,5 +34,6 @@ const GenerateToken=(data)=>{
 
 module.exports={
     GenerateToken,
-    verifyToken
+    verifyToken,
+    verifyOnwerToken
 }

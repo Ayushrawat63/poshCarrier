@@ -15,12 +15,17 @@ const customerSchema = mongoose.Schema({
     required: true,
   },
   customerPic: {
-    type: String,
+    type: Buffer,
  
   },
   phoneNo: {
     type: Number,
     
+  },
+  role:{
+    type:String,
+    enum:["User","Admin"],
+    default:"User"
   },
   cart: [{
     type: mongoose.Schema.Types.ObjectId,

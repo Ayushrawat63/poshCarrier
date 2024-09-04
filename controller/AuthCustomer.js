@@ -2,7 +2,7 @@ const {bcryptPassword ,verifyPassword}=require('../utils/hashing')
 
 const userModel=require('../models/user-model')
 const { GenerateToken  } = require('../utils/jwt')
-const productModel=require('../models/product-model')
+
 
 const regsiterCustomer=async(req,res)=>{
     try{
@@ -12,17 +12,19 @@ const regsiterCustomer=async(req,res)=>{
      let newUser= await userModel.create({
         fullName,
         email,
-        password
+        password,
      })
       
      const payload={
-      id:newUser._id
+      id:newUser._id,
+      role:newUser.role,
      }
 
       const token =GenerateToken(payload);
       res.cookie('jwtToken',token);
+      
+      return res.redirect('/shop')
     
-     res.status(201).json({message:"New User created",newUser})
     }
     catch (err) {
         console.log(err.message);
@@ -52,15 +54,14 @@ const loginCustomer=async (req,res)=>{
           
          
         const payload={
-          id:user._id
+          id:user._id,
+          role:user.role
          }
     
           const token =GenerateToken(payload);
           res.cookie('jwtToken',token);
 
-          const products= await  productModel.find()
-          const success=req.flash('success')
-          res.render('shop',{products,success})
+            return res.redirect('/shop')
     }
     catch (err) {
         console.log(err.message);

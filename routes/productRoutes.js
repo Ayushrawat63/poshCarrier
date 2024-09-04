@@ -2,8 +2,10 @@ const express=require('express')
 const router =express.Router()
 const upload=require('../config/mutler-config')
 const productModel=require('../models/product-model')
+const ownerModel =require('../models/owner-model')
+const { verifyOnwerToken } = require('../utils/jwt')
 
-router.post("/create", upload.single('image') ,async(req,res)=>{
+router.post("/create",verifyOnwerToken, upload.single('image') ,async(req,res)=>{
     try{
         let {name,price,discount,bgcolor,panelcolor,textcolor}=req.body
 
@@ -17,8 +19,18 @@ router.post("/create", upload.single('image') ,async(req,res)=>{
             textColor:textcolor
         })
 
+        const owner=await ownerModel.findOne({_id:req.payload.id})
+
+        owner.products.push(newProduct._id);
+        await owner.save();
+           
+
+
+
+
+
         req.flash('success',"New product is created")
-        return res.redirect('/owner/admin')
+        return res.redirect('/owner/products')
 
     }
     catch (err){

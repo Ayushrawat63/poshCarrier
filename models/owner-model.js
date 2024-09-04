@@ -14,16 +14,22 @@ const ownerSchema = mongoose.Schema({
     required: true,
   },
   ownerPic: {
-    type: String,
-   
+    type: Buffer
+  },
+  role:{
+    type:String,
+    enum:["User","Admin"],
+    default:"Admin"
   },
   gstNo: {
     type: String,
-   
   },
-  products: {
-    type: [],
-  },
+  products: [
+    {
+      type:mongoose.Schema.Types.ObjectId,
+      ref:'product'
+    }
+  ]
 });
 
 const ownerModel = mongoose.model("owner", ownerSchema);

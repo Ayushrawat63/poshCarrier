@@ -1,0 +1,86 @@
+<%- include('./partials/header') %>
+<% if(success.length>0){ %>
+    <div class="absolute top-10 left-1/2 -translate-x-1/2 -translate-y-1/2 p-3 rounded-md bg-blue-500">
+        <span class="inline-block mt-1 mb-1 text-white">
+            <%= success %>
+        </span>
+    </div>
+    <% } %>
+<div class="w-full h-screen  px-52 py-20">
+  <div class="mb-4 ">
+    <h1 class="text-2xl font-extrabold">User Information</h1>
+    <h3 class="text-lg">Personal details and application.</h3>
+  </div>
+  <div class="flex h-full">
+      <% var isAdmin = typeof isAdmin !== "undefined"? isAdmin: false %>
+      
+      <% if (isAdmin) { %>
+        <div class="w-1/4 h-72 flex flex-col mr-10 ">
+            <% if (owner.ownerPic) { %>
+                <img class="w-full h-4/6" src="data:image/jpeg;base64,<%= owner.ownerPic.toString('base64') %>">
+            <% } %>
+            <form action="/owner/uploadimage" method="post" enctype="multipart/form-data">
+                <h5 class="mt-3">Upload new image</h5>
+                <input type="file" name="userImage">
+                <button class="px-3 mt-2 py-2 rounded-md  bg-blue-500 " type="submit">Upload</button>
+            </form>
+        </div>
+        <div class="w-2/4 h-5/6 ">
+              <div class="flex  bg-gray-100 p-3">
+                  <h4 class="w-1/2">Full Name :  </h4>
+                  <span class=" text-zinc-500 capitalize"> <%= owner.fullName %></span>
+              </div>
+              <div class="flex  p-3">
+                  <h4 class="w-1/2">Email :  </h4>
+                  <span class=" text-zinc-500 capitalize"> <%= owner.email %></span>
+              </div>
+              <div class="flex  bg-gray-100 p-3">
+                  <h4 class="w-1/2">Role :  </h4>
+                  <span class=" text-zinc-500 capitalize"><%= owner.role %></span>
+              </div>
+              <div class="flex  p-3">
+                  <h4 class="w-1/2">GST.NO :  </h4>
+                  <span class=" text-zinc-500 capitalize"> <%= owner.fullName %></span>
+              </div>
+    
+              <div class="flex  bg-gray-100 p-3">
+                  <h4 class="w-1/2">Total Products listed :  </h4>
+                  <span class=" text-zinc-500 capitalize"><%= owner.products.length %> </span>
+              </div>
+       
+                  
+        </div>
+        <% } else { %>
+            <div class="w-1/4 h-72 flex flex-col mr-10 ">
+                    <img class="w-full h-4/6" src="data:image/jpeg;base64,<%= user.customerPic.toString('base64') %>" alt="user image">
+                    
+                <form action="/uploadimage" method="post" enctype="multipart/form-data">
+                    <h5 class="mt-3">Upload new image</h5>
+                    <input type="file" name="userImage">
+                    <button class="px-3 mt-2 py-2 rounded-md  bg-blue-500 " type="submit">Upload</button>
+                </form>
+            </div>
+            <div class="w-2/4 h-5/6 ">
+                  <div class="flex  bg-gray-100 p-3">
+                      <h4 class="w-1/2">Full Name :  </h4>
+                      <span class=" text-zinc-500 capitalize"> <%= user.fullName %></span>
+                  </div>
+                  <div class="flex  p-3">
+                      <h4 class="w-1/2">Email :  </h4>
+                      <span class=" text-zinc-500 capitalize"> <%= user.email %></span>
+                  </div>
+                  <div class="flex  bg-gray-100 p-3">
+                      <h4 class="w-1/2">Role :  </h4>
+                      <span class=" text-zinc-500 capitalize"><%= user.role %></span>
+                  </div>
+                  <div class="flex  p-3">
+                      <h4 class="w-1/2">Address : </h4>
+                      <span class=" text-zinc-500 capitalize"> New Delhi</span>
+                  </div>
+           
+                      
+            </div>
+        <%}%>
+  </div>
+</div>
+<%- include('./partials/footer') %>

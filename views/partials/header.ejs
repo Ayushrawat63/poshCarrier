@@ -10,9 +10,9 @@
 </head>
 
 <body class="font-['helvetica_now_display']">
-    <nav class="w-full fixed top-0 left-0 px-5 py-3">
+    <nav class="w-full fixed top-0 left-0 px-7 py-4">
         <div class="flex justify-between">
-            <h3 class="text-xl">PoshCarrier</h3>
+            <h3 class="text-xl  font-bold ">PoshCarrier</h3>
             <% var islogin = typeof islogin !== "undefined"? islogin : true %>
 
             <% if (islogin) { %>
@@ -20,8 +20,21 @@
                     <ul class="flex gap-10 ">
                         <li><a href="/shop">Shop</a></li>
                         <li><a href="/cart">Cart</a></li>
-                        <li> <a href="">My Account</a></li>
+                        <li> <a href="/account">My Account</a></li>
                         <li><a class="text-red-500 font-bold " href="/user/logout">Logout</a></li>
+                    </ul>
+                </div>
+            <% } %>
+
+            <% var isAdmin = typeof isAdmin !== "undefined"? isAdmin: false %>
+
+            <% if (isAdmin) { %>
+                <div>
+                    <ul class="flex gap-10 ">
+                        <li><a href="/owner/products">All Products</a></li>
+                        <li><a href="/owner/createproduct">Create Product</a></li>
+                        <li> <a href="/owner/account">My Account</a></li>
+                        <li><a class="text-red-500 font-bold " href="/owner/logout">Logout</a></li>
                     </ul>
                 </div>
             <% } %>
