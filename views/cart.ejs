@@ -1,58 +1,67 @@
 <%- include('./partials/header') %>
-   <% if (customer.cart.length===0) { %>
-        <div class="p-20">
-            <h1 class="text-2xl text-red-500">Cart is Empty!</h1>
-            <h3 class="text-xl inline">Go to shop buy new bags</h3>
-            <a href="/shop" class="bg-blue-500 text-white px-5 py-3 rounded-md mt-2 ml-2">Shop</a>
-   <% } %>
-   <% customer.cart.forEach(product => { %>
-    <% var bill = (product.price + 20 )-product.discount %>
-    <div class="w-full  px-20 py-20 ">
-        <div class=" w-full  flex items-start  gap-10 ">
-            <div class="w-[25%] rounded-md overflow-hidden">
-                <div class="w-full flex justify-center  bg-[<%= product.bgColor %>]">
-                    <img class="h-[12rem]" src="data:image/jpeg;base64,<%= product.image.toString('base64') %>"
-                                    alt="">
-                </div>
-                <div class="w-full flex justify-between px-5 py-4 bg-[<%= product.panelColor %>] ">
-                    <h3 class="text-xl "><%= product.name %></h3>
-                    <div class="flex items-center gap-2 pl-4">
-                        <i class="w-5 h-5 bg-white flex rounded-full items-center justify-center ri-add-line"></i>
-                        <div class="px-2 py-1 rounded-md bg-white text-black text-sm">01</div>
-                        <i class="w-5 h-5 bg-white flex rounded-full items-center justify-center ri-subtract-line"></i>
-                    </div>
-                </div>
-            </div>
-            <div class="w-[70%]">
-                <h3 class="text-xl">Price Breakdown</h3>
-                <div class="px-10 mt-5">
-                    <div class="flex mt-2">
-                        <h4 class="w-1/3">Total MRP</h4>
-                        <h4>₹<%= product.price %></h4>
-                    </div>
-                    <div class="flex mt-2">
-                        <h4 class="w-1/3">Discount on MRP</h4>
-                        <h4>₹<%= product.discount %></h4>
-                    </div>
-                    <div class="flex mt-2">
-                        <h4 class="w-1/3">Platform Fee</h4>
-                        <h4>₹ 20</h4>
-                    </div>
-                    <div class="flex mt-2">
-                        <h4 class="w-1/3">Shipping Fee</h4>
-                        <h4>FREE</h4>
-                    </div>
-                </div>
-                <div class="w-full h-[1px] bg-black mt-10"></div>
-                <div class="flex mt-5">
-                    <h3 class="w-1/3 text-xl">Total Amount</h3>
-                    <h3 class="font-semibold text-xl text-green-600">₹<%= bill %></h3>
-                </div>
-                <form action=""></form>
-            </div>
-        </div>
-       
+<% if (customer.cart.length === 0) { %>
+    <div class="p-4 md:p-20 text-center">
+        <h1 class="text-xl md:text-2xl text-red-500">Cart is Empty!</h1>
+        <h3 class="text-lg md:text-xl inline">Go to shop and buy new bags</h3>
+        <a href="/shop" class="bg-blue-500 text-white px-4 py-2 md:px-5 md:py-3 rounded-md mt-2 inline-block">Shop</a>
     </div>
-   <% }) %>
-    
-    <%- include('./partials/footer') %>
+<% } else { %>
+
+<div class="mt-16 md:mt-16 px-4 md:px-32 py-4 ">
+    <h1 class="text-2xl md:text-3xl">Shopping Cart</h1>
+
+    <% var subtotal = 0 %>
+    <div class="flex flex-col md:flex-row justify-between mt-4 space-y-6 md:space-y-0">
+        <div class="w-full md:w-4/6">
+            <hr class="mt-2">
+            <% customer.cart.forEach(product => { %>
+                <% var bill = (product.price + 20) - product.discount %>
+                <% subtotal = subtotal + bill %>
+                <div class="flex flex-col md:flex-row items-center mt-2 space-y-4 md:space-y-0">
+                    <div class="h-full bg-gray-100 p-4 flex justify-center items-center">
+                        <img src="data:image/jpeg;base64,<%= product.image.toString('base64') %>" class="w-32 md:w-48 h-32 md:h-44 object-contain" alt="">
+                    </div>
+                    <div class="flex w-full px-4 justify-between md:items-center">
+                        <div>
+                            <h3 class="text-lg md:text-xl"><%= product.name %></h3>
+                            <h4 class="text-sm md:text-base text-gray-500">Color | Large</h4>
+                            <h4 class="text-sm md:text-base">₹<%= bill %></h4>
+                        </div>
+                        <h4 class="text-gray-300">Qty: 1</h4>
+                        <a href="/delete/<%= product._id %>" class="text-red-500">Delete</a>
+                    </div>
+                </div>
+                <hr class="mt-2">
+            <% }) %>
+        </div>
+
+        <% var ordertotal = subtotal + 50 + 46 %>
+        <div class="w-full md:w-2/6 h-4/6 p-4 bg-gray-100 rounded-lg">
+            <h2 class="text-xl md:text-2xl font-semibold">Order Summary</h2>
+            <div class="flex justify-between py-3">
+                <h3 class="text-gray-500">Subtotal:</h3>
+                <span>₹<%= subtotal %></span>
+            </div>
+            <hr>
+            <div class="flex justify-between py-3">
+                <h3 class="text-gray-500">Shipping estimate:</h3>
+                <span>₹ 50</span>
+            </div>
+            <hr>
+            <div class="flex justify-between py-3">
+                <h3 class="text-gray-500">Tax estimate:</h3>
+                <span>₹ 46</span>
+            </div>
+            <hr>
+            <div class="flex justify-between py-3">
+                <h3 class="text-lg">Order total:</h3>
+                <span>₹ <%= ordertotal %></span>
+            </div>
+            <button class="px-4 py-3 bg-blue-500 rounded-md w-full text-white text-lg md:text-xl hover:bg-blue-600">Checkout</button>
+        </div>
+    </div>
+</div>
+
+<% } %>
+
+<%- include('./partials/footer') %>

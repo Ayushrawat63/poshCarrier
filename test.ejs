@@ -1,25 +1,69 @@
-<!-- <% products.forEach(function(product){ %>
-                    <div class="w-60">
-                        <div class="w-full h-52 flex items-center justify-center bg-[<%= product.bgcolor %>]">
-                            <img class="h-[12rem]" src="data:image/jpeg;base64,<%= product.image.toString('base64') %>"
-                                alt="">
-                        </div>
-                        <div
-                            class="flex justify-between bg-[<%= product.panelcolor %>] items-center px-4 py-4 text-[<%= product.textcolor %>]">
-                            <div>
-                                <h3>
-                                    <%= product.name %>
-                                </h3>
-                                <h4>₹ <%= product.price %>
-                                </h4>
-                            </div>
-                            <a class="w-7 h-7 flex items-center justify-center rounded-full bg-white" href="">
-                                <i class="ri-add-line"></i>
-                            </a>
-                        </div>
-                    </div>
-                    <% }) %> --> 
+<%- include('./partials/header') %>
+   <% if (customer.cart.length===0) { %>
+        <div class="p-20">
+            <h1 class="text-2xl text-red-500">Cart is Empty!</h1>
+            <h3 class="text-xl inline">Go to shop buy new bags</h3>
+            <a href="/shop" class="bg-blue-500 text-white px-5 py-3 rounded-md mt-2 ml-2">Shop</a>
+   <% } else{ %>
 
-
-
-                  
+    <div class="mt-16 px-32 py-4">
+     <h1 class="text-3xl">Shopping Cart</h1>
+   
+    <% var subtotal=0 %>
+     <div class="flex justify-between mt-4  ">
+         <div class=" w-4/6  ">
+             <hr class="mt-2">
+            <% customer.cart.forEach(product => { %>
+             <%  var bill = (product.price + 20 )-product.discount  %>
+             <% subtotal=subtotal+bill %>
+             <div class=" flex  mt-2">
+                 <div class="h-full object-contain flex justify-center items-center bg-gray-100">
+                     <img src="data:image/jpeg;base64,<%= product.image.toString('base64') %> " class="w-48 h-44  object-contain " alt="">
+                 </div>
+                  <div class="flex w-full px-4 justify-between">
+                     <div class="">
+                         <h3><%= product.name %></h3>
+                         <h4 class="text-gray-500">color | Large </h4>
+                         <h4>₹<%= bill %></h4>
+                     </div>
+                     <h4 class=" text-gray-300">Qty:1</h4>
+                     <a href="/delete/<%= product._id %>"class="  text-red-500 ">delete</a>
+                  </div>
+                 
+             </div>
+             <hr class="mt-2">
+            <% }) %>
+             </div>
+             <% var ordertotal=subtotal+50+46 %>
+             <div class="w-2/6 h-4/6 p-4  ml-4 bg-gray-100">
+                <h2 class="text-2xl font-semibold">Order Summary</h2>
+                <div class="flex py-3 justify-between">
+                   <h3 class="text-gray-500">SubTotal: </h1>
+                    <spna>₹<%= subtotal %></spna>
+                </div>
+                <hr>
+                <div class="flex py-3 justify-between">
+                   <h3 class="text-gray-500">Shipping estimate </h1>
+                    <spna>₹ 50</spna>
+                </div>
+                <hr>
+                <div class="flex py-3 justify-between">
+                   <h3 class="text-gray-500">Tax estimate: </h1>
+                    <spna>₹ 46</spna>
+                </div>
+                <hr>
+                <div class="flex py-3 justify-between">
+                   <h3>Order total: </h1>
+                    <spna>₹ <%= ordertotal %></spna>
+                </div>
+                <button class="px-3 py-3 bg-blue-500 rounded-md w-full text-white text-xl hover:bg-blue-600">Checkout</button>
+                
+             </div>
+     </div>
+     
+    </div>
+    <% } %>
+   
+   
+    
+    <%- include('./partials/footer') %>

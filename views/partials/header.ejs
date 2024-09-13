@@ -10,34 +10,70 @@
 </head>
 
 <body class="font-['helvetica_now_display']">
-    <nav class="w-full fixed top-0 left-0 px-7 py-4">
-        <div class="flex justify-between">
-            <h3 class="text-xl  font-bold ">PoshCarrier</h3>
+    <nav class="w-full fixed top-0 left-0 px-7 py-4 bg-white shadow-md z-50">
+        <div class="flex justify-between   items-center">
+            <!-- Logo -->
+            <h3 class="text-xl font-bold">PoshCarrier</h3>
+            
+            <!-- Mobile Menu Button -->
+            <button class="block lg:hidden text-2xl" id="menu-btn">
+                <i class="ri-menu-line"></i>
+            </button>
+
+            <!-- Navigation Links (User) -->
             <% var islogin = typeof islogin !== "undefined"? islogin : true %>
-
             <% if (islogin) { %>
-                <div>
-                    <ul class="flex gap-10 ">
-                        <li><a href="/shop">Shop</a></li>
-                        <li><a href="/cart">Cart</a></li>
-                        <li> <a href="/account">My Account</a></li>
-                        <li><a class="text-red-500 font-bold " href="/user/logout">Logout</a></li>
+            <div id="nav-links" class="hidden lg:flex  lg:w-full lg:justify-end lg:gap-10 ">
+                
+                    <ul class="flex flex-col lg:flex-row gap-4 lg:gap-10 mt-4 lg:mt-0">
+                        <li><a href="/shop" class="hover:text-blue-600">Shop</a></li>
+                        <li><a href="/cart" class="hover:text-blue-600">Cart</a></li>
+                        <li><a href="/account" class="hover:text-blue-600">My Account</a></li>
+                        <li><a href="/user/logout" class="text-red-500 font-bold hover:text-red-700">Logout</a></li>
                     </ul>
                 </div>
-            <% } %>
-
-            <% var isAdmin = typeof isAdmin !== "undefined"? isAdmin: false %>
-
+                <% } %>
+                
+            <!-- Navigation Links (Admin) -->
+            <% var isAdmin = typeof isAdmin !== "undefined"? isAdmin : false %>
             <% if (isAdmin) { %>
-                <div>
-                    <ul class="flex gap-10 ">
-                        <li><a href="/owner/products">All Products</a></li>
-                        <li><a href="/owner/createproduct">Create Product</a></li>
-                        <li> <a href="/owner/account">My Account</a></li>
-                        <li><a class="text-red-500 font-bold " href="/owner/logout">Logout</a></li>
+            <div id="admin-links" class="hidden lg:flex lg:gap-10   lg:w-full lg:justify-end">
+                
+                    <ul class="flex flex-col lg:flex-row gap-4 lg:gap-10 mt-4 lg:mt-0">
+                        <li><a href="/owner/products" class="hover:text-blue-600">All Products</a></li>
+                        <li><a href="/owner/createproduct" class="hover:text-blue-600">Create Product</a></li>
+                        <li><a href="/owner/account" class="hover:text-blue-600">My Account</a></li>
+                        <li><a href="/owner/logout" class="text-red-500 font-bold hover:text-red-700">Logout</a></li>
                     </ul>
                 </div>
+            </div>
             <% } %>
-         
+
+        <!-- Mobile Dropdown Menu -->
+        <div id="mobile-menu" class="lg:hidden hidden flex-col gap-4 mt-4">
+            <ul class="flex flex-col gap-4">
+                <% if (islogin) { %>
+                    <li><a href="/shop" class="hover:text-blue-600">Shop</a></li>
+                    <li><a href="/cart" class="hover:text-blue-600">Cart</a></li>
+                    <li><a href="/account" class="hover:text-blue-600">My Account</a></li>
+                    <li><a href="/user/logout" class="text-red-500 font-bold hover:text-red-700">Logout</a></li>
+                <% } %>
+                <% if (isAdmin) { %>
+                    <li><a href="/owner/products" class="hover:text-blue-600">All Products</a></li>
+                    <li><a href="/owner/createproduct" class="hover:text-blue-600">Create Product</a></li>
+                    <li><a href="/owner/account" class="hover:text-blue-600">My Account</a></li>
+                    <li><a href="/owner/logout" class="text-red-500 font-bold hover:text-red-700">Logout</a></li>
+                <% } %>
+            </ul>
         </div>
     </nav>
+
+    <script>
+        // Toggle mobile menu
+        document.getElementById('menu-btn').addEventListener('click', function () {
+            document.getElementById('mobile-menu').classList.toggle('hidden');
+        });
+    </script>
+</body>
+
+</html>

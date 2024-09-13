@@ -7,11 +7,6 @@ const {
   logoutCustomer,
 } = require("../controller/AuthCustomer");
 
-// router.get("/", (req, res) => {
-//   const error = req.flash("error");
-//   res.render("index", { error });
-// });
-
 router.post("/register", regsiterCustomer);
 
 router.post("/login", loginCustomer);
