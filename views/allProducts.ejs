@@ -1,9 +1,8 @@
 <%- include('./partials/header') %>
  <% if(success.length > 0) { %>
-    <div
-      class="absolute top-10 z-50 left-1/2 transform -translate-x-1/2 p-3 rounded-md bg-blue-500"
-    >
-      <span class="inline-block text-white"><%= success %></span>
+    <div id="flash-message" class="flash-message z-50 p-4 rounded-md bg-blue-500 text-white fixed top-10 left-1/2 transform -translate-x-1/2 transition-opacity duration-500 flex justify-between items-center">
+        <span><%= success %></span>
+        <button id="close-flash" class="ml-4 text-white font-bold">&times;</button>
     </div>
     <% } %>
 <div class="w-full min-h-screen flex flex-col md:flex-row items-start px-4 md:px-20 py-10 lg:mt-10 mt-12">
@@ -39,7 +38,7 @@
                         </div>
     
                         <!-- Product Details -->
-                        <div class="flex  justify-between px-4 py-2 bg-[<%= product.panelColor %>] text-gray-800">
+                        <div class="flex  justify-between px-4 py-2 bg-[<%= product.panelColor %>] text-[<%= product.textColor %>]">
                             <div>
                                 <h3 class="font-semibold"><%= product.name %></h3>
                                 <h4 class="text-lg font-bold">₹ <%= product.price %></h4>

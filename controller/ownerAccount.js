@@ -118,6 +118,9 @@ const deleteProdtuct = async (req, res) => {
 const deleteAllProducts = async (req, res) => {
   try {
     await productModel.deleteMany({});
+     await ownerModel.findOneAndUpdate({_id:req.payload.id},{
+        products:[]
+     })
     req.flash("success", "All products deleted Successfully");
     res.redirect("/owner/products");
   } catch (err) {

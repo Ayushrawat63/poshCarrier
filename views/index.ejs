@@ -1,9 +1,13 @@
 <%- include('./partials/header') %>
-<% if(error.length > 0) { %>
-  <div class="absolute top-10 z-50 left-1/2 -translate-x-1/2 p-3 rounded-md bg-red-500">
-    <span class="inline-block text-white"> <%= error %> </span>
+<% if (error.length > 0) { %>
+  <div id="flash-message" class="flash-message  z-50 p-4 rounded-md bg-red-500 text-white fixed top-10 left-1/2 transform -translate-x-1/2 transition-opacity duration-500 flex justify-between items-center">
+      <span><%= error %></span>
+      <button id="close-flash" class="ml-4 text-white font-bold">&times;</button>
   </div>
 <% } %>
+
+
+
 
 <div class="w-full  h-screen flex flex-col md:flex-row items-center px-4 md:px-16 md:mt-10">
   <!-- Registration Section -->

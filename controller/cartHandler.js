@@ -30,7 +30,27 @@ const addToCart=async (req, res) => {
       }
 }
 
+const deleteCartItem=async(req,res)=>{
+  try{
+    // console.log(req.payload.id)
+    // console.log(req.params.id)
+    const customer=await userModel.findOne({_id:req.payload.id});
+     const newlist =customer.cart.filter((product)=>{
+      return product!=req.params.id;
+     })
+    await userModel.findOneAndUpdate({_id:req.payload.id},{
+      cart:newlist
+    })
+    res.redirect('/cart')
+  }
+  catch (err) {
+    console.log(err.message);
+    res.status(500).json({ message: "Internal Server Error" });
+  }
+}
+
 module.exports={
     addToCart,
-    showCart
+    showCart,
+    deleteCartItem
 }

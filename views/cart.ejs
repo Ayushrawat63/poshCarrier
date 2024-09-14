@@ -1,6 +1,6 @@
 <%- include('./partials/header') %>
 <% if (customer.cart.length === 0) { %>
-    <div class="p-4 md:p-20 text-center">
+    <div class="p-4 md:p-20 text-center mt-16">
         <h1 class="text-xl md:text-2xl text-red-500">Cart is Empty!</h1>
         <h3 class="text-lg md:text-xl inline">Go to shop and buy new bags</h3>
         <a href="/shop" class="bg-blue-500 text-white px-4 py-2 md:px-5 md:py-3 rounded-md mt-2 inline-block">Shop</a>
@@ -28,7 +28,10 @@
                             <h4 class="text-sm md:text-base">₹<%= bill %></h4>
                         </div>
                         <h4 class="text-gray-300">Qty: 1</h4>
-                        <a href="/delete/<%= product._id %>" class="text-red-500">Delete</a>
+                        <form action="/delete/<%= product._id %>" method="POST" class="inline-block">
+                            <button class="text-red-500 hover:underline" type="submit">Delete</button>
+                        </form>
+                        
                     </div>
                 </div>
                 <hr class="mt-2">

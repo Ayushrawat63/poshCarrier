@@ -69,11 +69,35 @@
     </nav>
 
     <script>
-        // Toggle mobile menu
+    
         document.getElementById('menu-btn').addEventListener('click', function () {
             document.getElementById('mobile-menu').classList.toggle('hidden');
         });
+    
+setTimeout(() => {
+    const flashMessage = document.getElementById('flash-message');
+    if (flashMessage) {
+      
+        flashMessage.style.opacity = '0';
+        
+         
+        setTimeout(() => {
+            flashMessage.remove();
+        }, 5000);
+    }
+}, 3000); 
+document.getElementById('close-flash')?.addEventListener('click', function() {
+    const flashMessage = document.getElementById('flash-message');
+    if (flashMessage) {
+        flashMessage.style.opacity = '0';
+        setTimeout(() => {
+            flashMessage.remove();
+        }, 500);
+    }
+});
+
     </script>
+    
 </body>
 
 </html>

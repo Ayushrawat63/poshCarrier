@@ -1,11 +1,11 @@
 <%- include('./partials/header') %>
-<% if(success.length > 0) { %>
-    <div class="absolute top-10 left-1/2 transform -translate-x-1/2 p-3 rounded-md bg-blue-500">
-        <span class="inline-block text-white">
-            <%= success %>
-        </span>
+
+  <% if (success.length > 0) { %>
+    <div id="flash-message" class="flash-message z-50 p-4 rounded-md bg-blue-500 text-white fixed top-10 left-1/2 transform -translate-x-1/2 transition-opacity duration-500 flex justify-between items-center">
+        <span><%= success %></span>
+        <button id="close-flash" class="ml-4 text-white font-bold">&times;</button>
     </div>
-<% } %>
+  <% } %>
 
 <div class="w-full min-h-screen px-4 lg:px-20 py-20">
     <div class="mb-4">
@@ -19,7 +19,7 @@
         <% if (isAdmin) { %>
         <div class="lg:w-1/4 flex flex-col mb-10 lg:mb-0 lg:mr-10">
             <% if (owner.ownerPic) { %>
-                <img class="w-full h-56 object-contain" src="data:image/jpeg;base64,<%= owner.ownerPic.toString('base64') %>">
+                <img class="w-full h-56 object-fit" src="data:image/jpeg;base64,<%= owner.ownerPic.toString('base64') %>">
             <% } else { %>
                 <img class="w-full h-56 object-contain" src="/images/5856.png" alt="user image">
             <% } %>
