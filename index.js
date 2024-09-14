@@ -14,6 +14,7 @@ const userRouter=require('./routes/userRoutes')
 const productRouter=require('./routes/productRoutes')
 const homeRouter=require('./routes/HomeRoutes')
 
+const PORT= process.env.PORT || 4000
 app.use(express.json())
 app.use(express.urlencoded({extended:true}))
 app.use(cookieParser())
@@ -32,7 +33,6 @@ app.use('/',homeRouter)
 app.use('/owner',ownerRouter)
 app.use('/user',userRouter)
 app.use('/product',productRouter)
-
-app.listen(4000,()=>{
+app.listen(PORT,()=>{
     console.log("server started")
 })
